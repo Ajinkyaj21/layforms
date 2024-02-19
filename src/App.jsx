@@ -52,9 +52,9 @@ const App=() =>{
     }
   };
 
-  useEffect(()=>{
-    console.log(formItems,"lulzo");
-  },[formItems])
+  // useEffect(()=>{
+  //   console.log(formItems,"lulzo");
+  // },[formItems])
  
 
   return (
@@ -68,6 +68,7 @@ const App=() =>{
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
+              className='mt-5'
             >
               {items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -78,12 +79,8 @@ const App=() =>{
                     {...provided.dragHandleProps}
                     className={styles.inputContainer}
                                         >
-                    <input
-                        placeholder={item.content}
-                        className={styles.input}
-                      />
-                    </div>
-                    
+                    {item.display_name}
+                        </div> 
                   )}
                 </Draggable>
               ))}
@@ -92,8 +89,8 @@ const App=() =>{
           )}
         </Droppable>
 
-        <div className='mx-5'>
-          <h1>Form</h1>
+        <div className={styles.formContainer}>
+          <h2 className='text-center '>Form</h2>
           <form>
           <Droppable droppableId="form-droppable">
   {(provided, snapshot) => (
@@ -107,7 +104,72 @@ const App=() =>{
          {...provided.dragHandleProps}
          className={styles.inputContainer}
                              >
-        <input  className={styles.input} key={item.id} placeholder={item.content}></input>
+        {
+          item.input_type == 'text' &&
+          <div>
+            {item.value_type=="number" ?
+          <div>
+            <label className='fw-bold'>{item.display_name}</label>         
+            <input type='number' className={styles.input} key={item.id} placeholder={`Enter ${item.display_name}`}></input> 
+          </div>
+          :
+          <div>
+            <label className='fw-bold'>{item.display_name}</label>         
+            <input  className={styles.input} key={item.id} placeholder={`Enter ${item.display_name}`}></input> 
+          </div>
+        } 
+          </div>
+        }  
+        {
+          item.input_type == 'password' && 
+          <div>
+            <label className='fw-bold'>{item.display_name}</label>         
+            <input  type='password' className={styles.input} key={item.id} placeholder={`Enter ${item.display_name}`}></input> 
+          </div>
+        }  
+        {
+          item.input_type == 'checkbox' && 
+          <div>
+            <label className='fw-bold'>{item.display_name}</label> 
+            <div>    
+            {item.options.map((item) => (
+              <>
+              <input type="checkbox" value={item}/> 
+              <label className='px-1' key={item}>{item}</label>
+              </>
+            ))}
+            </div>
+          </div>  
+        }
+        {
+          item.input_type == 'radio' && 
+          <div>
+            <label className='fw-bold'>{item.display_name}</label> 
+            <div>    
+            {item.options.map((item) => (
+              <>
+              <input type="radio" value={item}  name="radioGroupName" /> 
+              <label className='px-1' key={item}>{item}</label>
+              </>
+            ))}
+            </div>
+          </div>  
+        }      
+        {
+          item.input_type == 'select' && 
+          <div>
+            <label className='fw-bold'>{item.display_name}</label> 
+            <div>    
+            <select className='my-1'>
+              {
+                item.options.map(el=><>
+                  <option value={el}>{el}</option>
+                </>)
+              }
+            </select>  
+          </div>
+          </div>  
+        }           
         </div>
             )}
             </Draggable>
