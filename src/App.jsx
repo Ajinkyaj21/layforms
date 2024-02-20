@@ -110,12 +110,12 @@ const App=() =>{
             {item.value_type=="number" ?
           <div>
             <label className='fw-bold'>{item.display_name}</label>         
-            <input type='number' className={styles.input} key={item.id} placeholder={`Enter ${item.display_name}`}></input> 
+            <input type='number' readOnly className={styles.input} key={item.id} placeholder={`Enter ${item.display_name}`}></input> 
           </div>
           :
           <div>
             <label className='fw-bold'>{item.display_name}</label>         
-            <input  className={styles.input} key={item.id} placeholder={`Enter ${item.display_name}`}></input> 
+            <input  className={styles.input} readOnly key={item.id} placeholder={`Enter ${item.display_name}`}></input> 
           </div>
         } 
           </div>
@@ -124,7 +124,7 @@ const App=() =>{
           item.input_type == 'password' && 
           <div>
             <label className='fw-bold'>{item.display_name}</label>         
-            <input  type='password' className={styles.input} key={item.id} placeholder={`Enter ${item.display_name}`}></input> 
+            <input type='password' readOnly className={styles.input} key={item.id} placeholder={`Enter ${item.display_name}`}></input> 
           </div>
         }  
         {
@@ -134,7 +134,7 @@ const App=() =>{
             <div>    
             {item.options.map((item) => (
               <>
-              <input type="checkbox" value={item}/> 
+              <input disabled={true} type="checkbox" value={item}/> 
               <label className='px-1' key={item}>{item}</label>
               </>
             ))}
@@ -148,7 +148,7 @@ const App=() =>{
             <div>    
             {item.options.map((item) => (
               <>
-              <input type="radio" value={item}  name="radioGroupName" /> 
+              <input disabled={true} readOnly type="radio" value={item}  name="radioGroupName" /> 
               <label className='px-1' key={item}>{item}</label>
               </>
             ))}
@@ -163,7 +163,7 @@ const App=() =>{
             <select className='my-1'>
               {
                 item.options.map(el=><>
-                  <option value={el}>{el}</option>
+                  <option disabled={true} value={el}>{el}</option>
                 </>)
               }
             </select>  
